@@ -5,3 +5,6 @@ This Algorithm aims to improve the diversity of Spotify-recommended songs or pla
 
 Formula:
 Final Score = Cosine similarity - diversity penalty + bonus 
+
+How to use
+Simply run the Python code
