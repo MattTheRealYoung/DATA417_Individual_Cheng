@@ -33,7 +33,7 @@ def get_similarity_scores(user_history, song_library):
         result.append(total / len(user_history))
     return result
 
-def recommend_songs(user_history, singers, recommendNumber):
+def recommend_songs(user_history, singers, recommendNumber, deleteHistory = False):
     # Calculate similarity scores
     similarity_scores = get_similarity_scores(user_history, song_library.iloc[0:, 8:18])
 
@@ -50,6 +50,8 @@ def recommend_songs(user_history, singers, recommendNumber):
 
     # Sort and recommend
     recommended_songs = song_library.sort_values(by='score', ascending=False)
+    if deleteHistory:
+        user_history.clear()
     if(recommendNumber > 0):
         return recommended_songs.iloc[0:recommendNumber]
     else:
@@ -59,7 +61,7 @@ song_library = pd.read_csv("dataset.csv")
 user_history = [song_library.iloc[58, 8 : 18].values, song_library.iloc[67, 8 : 18].values]
 singers = [song_library.iloc[58]['artists'],  song_library.iloc[67]['artists']]
 
-top_recommend_songs = recommend_songs(user_history, singers, 5)
+top_recommend_songs = recommend_songs(user_history, singers, 5, True)
 
 # Print recommended songs
 print(top_recommend_songs)
